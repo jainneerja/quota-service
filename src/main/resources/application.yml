@@ -5,7 +5,7 @@ spring:
   application:
     name: quota-service
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:quotadb}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:quotadb}?currentSchema=quota
     username: ${DB_USER:quota}
     password: ${DB_PASSWORD:quota}
   jpa:
