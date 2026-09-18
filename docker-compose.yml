@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: quotadb
+      POSTGRES_USER: quota
+      POSTGRES_PASSWORD: quota
+    ports:
+      - "5432:5432"
+    volumes:
+      - quota_pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: quotadb
+      DB_USER: quota
+      DB_PASSWORD: quota
+    depends_on:
+      - postgres
+
+volumes:
+  quota_pgdata:
