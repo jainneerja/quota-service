@@ -35,6 +35,16 @@ mvn test
 Includes `QuotaConcurrencyIT`, a Testcontainers-backed test proving 50
 concurrent reserve calls never push usage past the configured limit.
 
+## Observability
+
+- **Structured logs** — JSON via Logback + `logstash-logback-encoder`. Every `reserve`/`release` call logs `orgId`, `resourceType`, `action`, `result` (`allowed`/`denied`/`idempotent_replay`), and `latencyMs` as queryable fields, not buried in a message string.
+- **Metrics** — `quota_reserve_total{result=allowed|denied|idempotent_replay}` counter and a `quota_reserve_latency` timer (p50/p95/p99) via Micrometer, scraped at `/actuator/prometheus`.
+- **Health** — `/actuator/health`, used as the App Platform health check.
+
+```bash
+curl http://localhost:8080/actuator/prometheus | grep quota_reserve
+```
+
 ## Deploy to DigitalOcean App Platform
 
 ```bash

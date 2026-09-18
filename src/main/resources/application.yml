@@ -20,7 +20,14 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: never
+  metrics:
+    distribution:
+      percentiles-histogram:
+        quota.reserve.latency: true
 
 quota:
   reservation-ttl-minutes: 15

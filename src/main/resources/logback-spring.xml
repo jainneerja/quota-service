@@ -1,0 +1,18 @@
+<configuration>
+    <!-- Structured JSON logs so org_id, resource_type, action, result, and
+         latency_ms are queryable fields in any log aggregator, not just
+         text buried in a message string. -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>orgId</includeMdcKeyName>
+            <includeMdcKeyName>resourceType</includeMdcKeyName>
+            <includeMdcKeyName>action</includeMdcKeyName>
+            <includeMdcKeyName>result</includeMdcKeyName>
+            <includeMdcKeyName>latencyMs</includeMdcKeyName>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
