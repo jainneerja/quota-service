@@ -47,9 +47,15 @@ curl http://localhost:8080/actuator/prometheus | grep quota_reserve
 
 ## Deploy to DigitalOcean App Platform
 
+**Before running this**, edit `.do/app.yaml` and replace `YOUR_GITHUB_USERNAME/quota-service`
+with your actual pushed repo (e.g. `jainneerja/quota-service`).
+
 ```bash
 doctl apps create --spec .do/app.yaml
 ```
+
+`deploy_on_push: true` means every subsequent `git push` to `main` auto-redeploys —
+no need to re-run `doctl apps update` unless the spec itself changes (new env vars, scaling).
 
 ## Design
 
